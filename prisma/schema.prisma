@@ -31,7 +31,7 @@ model MenuCategory {
   id           String     @id @default(uuid())
   name         String
   restaurantId String
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   prodducts    Product[]
   createdAt    DateTime   @default(now())
   updateAt     DateTime   @updatedAt
@@ -47,7 +47,7 @@ model Product {
   orderProducts  OrderProduct[]
   menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id])
   menuCategoryId String
-  restaurant     Restaurant     @relation(fields: [restaurantId], references: [id])
+  restaurant     Restaurant     @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   restaurantId   String
   createdAt      DateTime       @default(now())
   updateAt       DateTime       @updatedAt
@@ -60,7 +60,7 @@ model Order {
   status            OrderStatus
   consumptionMethod ConsumptionMethod
   orderProducts     OrderProduct[]
-  restaurant        Restaurant        @relation(fields: [restaurantId], references: [id])
+  restaurant        Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   restaurantId      String
   createdAt         DateTime          @default(now())
   updateAt          DateTime          @updatedAt
@@ -70,9 +70,9 @@ model OrderProduct {
   id             String   @id @default(uuid())
   quantity       Int
   priceInCents   Int
-  order          Order    @relation(fields: [orderNumPedido], references: [numPedido])
+  order          Order    @relation(fields: [orderNumPedido], references: [numPedido], onDelete: Cascade)
   orderNumPedido Int
-  product        Product  @relation(fields: [productId], references: [id])
+  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId      String
   createdAt      DateTime @default(now())
   updateAt       DateTime @updatedAt
