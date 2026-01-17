@@ -12,3 +12,79 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Restaurant {
+  id             String         @id @default(uuid())
+  name           String
+  slug           String
+  description    String
+  avatarImageUrl String
+  coverImageUrl  String
+  menuCategory   MenuCategory[]
+  orders         Order[]
+  products       Product[]
+  createdAt      DateTime       @default(now())
+  updateAt       DateTime       @updatedAt
+}
+
+model MenuCategory {
+  id           String     @id @default(uuid())
+  name         String
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  prodducts    Product[]
+  createdAt    DateTime   @default(now())
+  updateAt     DateTime   @updatedAt
+}
+
+model Product {
+  id             String         @id @default(uuid())
+  name           String
+  description    String
+  priceInCents   Int
+  ImageUrl       String
+  ingredients    String[]
+  orderProducts  OrderProduct[]
+  menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id])
+  menuCategoryId String
+  restaurant     Restaurant     @relation(fields: [restaurantId], references: [id])
+  restaurantId   String
+  createdAt      DateTime       @default(now())
+  updateAt       DateTime       @updatedAt
+}
+
+model Order {
+  id                String            @id @default(uuid())
+  numPedido         Int               @unique @default(autoincrement())
+  totalInCents      Int
+  status            OrderStatus
+  consumptionMethod ConsumptionMethod
+  orderProducts     OrderProduct[]
+  restaurant        Restaurant        @relation(fields: [restaurantId], references: [id])
+  restaurantId      String
+  createdAt         DateTime          @default(now())
+  updateAt          DateTime          @updatedAt
+}
+
+model OrderProduct {
+  id             String   @id @default(uuid())
+  quantity       Int
+  priceInCents   Int
+  order          Order    @relation(fields: [orderNumPedido], references: [numPedido])
+  orderNumPedido Int
+  product        Product  @relation(fields: [productId], references: [id])
+  productId      String
+  createdAt      DateTime @default(now())
+  updateAt       DateTime @updatedAt
+}
+
+enum OrderStatus {
+  PEDING
+  IN_PREPARATION
+  FINISHED
+}
+
+enum ConsumptionMethod {
+  TAKEAWAY
+  DINE_IN
+}
