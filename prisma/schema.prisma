@@ -42,7 +42,7 @@ model Product {
   name           String
   description    String
   priceInCents   Int
-  ImageUrl       String
+  imageUrl       String
   ingredients    String[]
   orderProducts  OrderProduct[]
   menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id])
