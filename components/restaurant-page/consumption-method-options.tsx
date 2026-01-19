@@ -21,10 +21,10 @@ export default function ConsumptionMethodOptions({
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center gap-5">
-        <div className="relative h-[75px] w-[75px]">
+        <div className="relative h-19 w-19">
           <Image src={imageUrl} alt={imageAlt} fill />
         </div>
-        <Button variant="default" className="bg-gray-200 hover:bg-gray-300">
+        <Button variant="secondary">
           <Link href={`${slug}/menu?consumptionMethod=${option}`}>{buttonText}</Link>
         </Button>
       </div>
