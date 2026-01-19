@@ -1,4 +1,5 @@
 import RestaurantHeader from "@/components/menu/header";
+import RestaurantTitle from "@/components/menu/header-title-restaurant";
 import { getRestaurantBySlug } from "@/data/get-restaurant-by-slug";
 import { notFound } from "next/navigation";
 
@@ -27,6 +28,7 @@ export default async function RestaurantMenuPage({
   return (
     <div className="container mx-auto lg:border">
       <RestaurantHeader restaurant={restaurant} />
+      <RestaurantTitle restaurant={restaurant} />
     </div>
   );
 }
