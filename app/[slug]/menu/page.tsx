@@ -1,3 +1,4 @@
+import RestaurantCategories from "@/components/menu/categories";
 import RestaurantHeader from "@/components/menu/header";
 import RestaurantTitle from "@/components/menu/header-title-restaurant";
 import { getRestaurantBySlug } from "@/data/get-restaurant-by-slug";
@@ -29,6 +30,7 @@ export default async function RestaurantMenuPage({
     <div className="container mx-auto lg:border">
       <RestaurantHeader restaurant={restaurant} />
       <RestaurantTitle restaurant={restaurant} />
+      <RestaurantCategories restaurant={restaurant} />
     </div>
   );
 }
