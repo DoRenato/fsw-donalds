@@ -38,7 +38,7 @@ export default function RestaurantTitle({
       </div>
 
       {/* Status Aberto/Fechado */}
-      <div className="flex items-center gap-x-2 px-5 text-green-500">
+      <div className="flex items-center gap-x-2 px-5 text-green-500 text-xs">
         <Clock className="h-4 w-4" /> Aberto
       </div>
     </div>
