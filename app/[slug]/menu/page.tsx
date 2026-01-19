@@ -1,9 +1,6 @@
-import { Button } from "@/components/ui/button";
+import RestaurantHeader from "@/components/menu/header";
 import { getRestaurantBySlug } from "@/data/get-restaurant-by-slug";
-import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import RestaurantHeader from "./components/header";
 
 interface RestaurantMenuPageProps {
   params: Promise<{ slug: string }>;
@@ -28,10 +25,8 @@ export default async function RestaurantMenuPage({
     return notFound();
   }
   return (
-    <div className="container mx-auto">
-      <RestaurantHeader 
-      restaurant={restaurant}
-      />
+    <div className="container mx-auto lg:border">
+      <RestaurantHeader restaurant={restaurant} />
     </div>
   );
 }
