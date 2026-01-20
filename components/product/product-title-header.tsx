@@ -53,7 +53,7 @@ export default function ProductTextHeader({ product }: ProductTextHeaderProps) {
               className="rounded-full"
             />
           </div>
-          <div className="text-sm text-gray-300">{product.restaurant.name}</div>
+          <div className="text-sm opacity-30">{product.restaurant.name}</div>
         </div>
 
         {/* Titulo */}
