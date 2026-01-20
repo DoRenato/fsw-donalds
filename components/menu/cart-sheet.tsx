@@ -11,21 +11,24 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { useContext } from "react";
-
+import CartItem from "../cart/cart-item";
+import { ScrollArea } from "../ui/scroll-area";
 
 export default function CartSheet() {
-    const {isOpen, toggleCart, products } = useContext(CartContext);
+  const { isOpen, toggleCart, products } = useContext(CartContext);
   return (
-    <Sheet open={isOpen} onOpenChange={toggleCart} >
+    <Sheet open={isOpen} onOpenChange={toggleCart}>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Sacola</SheetTitle>
           <SheetDescription>
-            {products.map((product) => (
+            <ScrollArea>
+              {products.map((product) => (
                 <h1 key={product.id}>
-                    {product.name} - {product.quantity}
+                  <CartItem item={product} />
                 </h1>
-            ))}
+              ))}
+            </ScrollArea>
           </SheetDescription>
         </SheetHeader>
         <SheetFooter>
