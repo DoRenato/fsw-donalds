@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import ProductDetails from "./product-details";
 
 interface ProductTextHeaderProps {
   product: Prisma.ProductGetPayload<{
@@ -41,7 +42,7 @@ export default function ProductTextHeader({ product }: ProductTextHeaderProps) {
   return (
     <div className="relative z-50 mt-[-25] rounded-t-2xl bg-white">
       {/* header */}
-      <div className="flex flex-col px-5 pb-3 pt-5">
+      <div className="flex flex-col px-5 pb-6 pt-5">
         {/* Logo e nome do restaurante */}
         <div className="flex items-center gap-2 pb-1">
           <div>
@@ -73,6 +74,8 @@ export default function ProductTextHeader({ product }: ProductTextHeaderProps) {
           </div>
         </div>
       </div>
+      
+      <ProductDetails product={product} />
     </div>
   );
 }
