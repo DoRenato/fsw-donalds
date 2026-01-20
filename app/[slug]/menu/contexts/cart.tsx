@@ -15,6 +15,9 @@ export interface ICartContext {
   products: CartProduct[];
   toggleCart: () => void;
   addProduct: (product: CartProduct) => void;
+  decreaseProductQuantity: (productId: string) => void;
+  increaseProductQuantity: (productId: string) => void;
+  // removeProduct: (productId: CartProduct) => void;
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -22,6 +25,9 @@ export const CartContext = createContext<ICartContext>({
   products: [],
   toggleCart: () => {},
   addProduct: () => {},
+  decreaseProductQuantity: () => {},
+  increaseProductQuantity: () => {},
+  // removeProduct: () => {},
 });
 
 interface CartProviderProps {
@@ -38,17 +44,45 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (!productIsAlreadyOnTheCart) {
       return setProducts((prev) => [...prev, product]);
     }
-    setProducts(prevProducts => {
-      return prevProducts.map(prevProduct => {
+    setProducts((prevProducts) => {
+      return prevProducts.map((prevProduct) => {
         if (prevProduct.id === product.id) {
           return {
             ...prevProduct,
             quantity: prevProduct.quantity + product.quantity,
           };
         }
-        return prevProduct
+        return prevProduct;
       });
     });
+  };
+  const decreaseProductQuantity = (productId: string) => {
+    setProducts((prevProducts) => {
+      return prevProducts.map((prevProduct) => {
+        if (prevProduct.id !== productId) {
+          return prevProduct;
+        }
+        if (prevProduct.quantity === 1) {
+          return prevProduct;
+        }
+        return { ...prevProduct, quantity: prevProduct.quantity - 1 };
+      });
+    });
+  };
+  const increaseProductQuantity = (productId: string) => {
+    setProducts((prevProducts) => {
+      return prevProducts.map((prevProduct) => {
+        if (prevProduct.id !== productId) {
+          return prevProduct;
+        }
+        return { ...prevProduct, quantity: prevProduct.quantity + 1 };
+      });
+    });
+  };
+  const removeProduct = (productId: string) => {
+    setProducts((prevProducts) =>
+      prevProducts.filter((prevProduct) => prevProduct.id !== productId),
+    );
   };
   const toggleCart = () => {
     setIsOpen((prev) => !prev);
@@ -60,6 +94,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         products: products,
         toggleCart: toggleCart,
         addProduct: addProduct,
+        decreaseProductQuantity,
+        increaseProductQuantity,
+        // removeProduct: productId
       }}
     >
       {children}

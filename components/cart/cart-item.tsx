@@ -1,32 +1,16 @@
-import { CartProduct } from "@/app/[slug]/menu/contexts/cart";
+import { CartContext, CartProduct } from "@/app/[slug]/menu/contexts/cart";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
 import { convertCentsInRealBRL } from "@/utils/convert-cents-in-real";
-import { useState } from "react";
+import { useContext } from "react";
 
 interface CartItemProps {
   item: CartProduct;
 }
 
 export default function CartItem({ item }: CartItemProps) {
-  const [quantity, setQuantity] = useState<number>(item.quantity);
-  const handleDecreaseQuantity = () => {
-    setQuantity((prev) => {
-      if (prev === 1) {
-        return 1;
-      }
-      return prev - 1;
-    });
-  };
-  const handleIncreaseQuantity = () => {
-    setQuantity((prev) => {
-      if (prev === 99) {
-        return 99;
-      }
-      return prev + 1;
-    });
-  };
+  const{decreaseProductQuantity, increaseProductQuantity} = useContext(CartContext)
   return (
     <div className="flex items-center py-5">
       <div className="">
@@ -47,16 +31,16 @@ export default function CartItem({ item }: CartItemProps) {
           <Button
             variant={"secondary"}
             size={"icon"}
-            onClick={handleDecreaseQuantity}
+            onClick={()=>decreaseProductQuantity(item.id)}
             className="w-6 h-6"  
           >
             <ChevronLeft />
           </Button>
-          <span className="w-4 text-center">{quantity}</span>
+          <span className="w-4 text-center">{item.quantity}</span>
           <Button
             variant={"destructive"}
             size={"icon"}
-            onClick={handleIncreaseQuantity}
+            onClick={()=>increaseProductQuantity(item.id)}
             className="w-6 h-6"  
           >
             <ChevronRight />
