@@ -14,7 +14,8 @@ interface RestaurantCategoriesProps {
         };
       };
     };
-  }>; // Só chama essas propriedades ao inves de todas
+  }>;
+  consumptionMethod: string;
 }
 
 type menuCategoriesWithProducts = Prisma.MenuCategoryGetPayload<{
@@ -23,6 +24,7 @@ type menuCategoriesWithProducts = Prisma.MenuCategoryGetPayload<{
 
 export default function RestaurantCategories({
   restaurant,
+  consumptionMethod,
 }: RestaurantCategoriesProps) {
   const [selectedCategory, setSelectedCategory] =
     useState<menuCategoriesWithProducts>(restaurant.menuCategories[0]);
@@ -58,7 +60,11 @@ export default function RestaurantCategories({
       <h1 className="text-md px-5 font-semibold">{selectedCategory.name}</h1>
 
       {/* Produtos */}
-      <ProductMenuRestaurant products={selectedCategory.products} />
+      <ProductMenuRestaurant
+        consumptionMethod={consumptionMethod}
+        slug={restaurant.slug}
+        products={selectedCategory.products}
+      />
     </div>
   );
 }

@@ -15,6 +15,11 @@ export const getRestaurantBySlug = async (slug: string) => {
   return restaurant;
 };
 
+export const getProductById = async (id: string) => {
+  const product = await db.product.findUnique({ where: { id: id } }); // poderia ser findFirst se não fosse um campo unique
+  return product;
+};
+
 // export const getRestaurantBySlug = async (slug: string) => {
 //   const restaurant = await db.restaurant.findUnique({ where: { slug: slug } }); // poderia ser findFirst se não fosse um campo unique
 //   return restaurant;

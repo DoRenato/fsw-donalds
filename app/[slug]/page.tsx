@@ -1,5 +1,5 @@
 import ConsumptionMethodOptions from "@/components/restaurant-page/consumption-method-options";
-import { getRestaurantBySlug } from "@/data/get-restaurant-by-slug";
+import { getRestaurantBySlug } from "@/data/get-restaurant-data";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
