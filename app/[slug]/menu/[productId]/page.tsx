@@ -15,14 +15,14 @@ export default async function ProductPage({
   params,
   searchParams,
 }: ProductPageProps) {
-  const { productId } =  await params;
+  const { productId, slug } =  await params;
   const product = await getProductById(productId);
   const { consumptionMethod } = await searchParams;
-  if (!isConsumptionMethodValid(consumptionMethod) || !product) {
+  if (!isConsumptionMethodValid(consumptionMethod) || !product || product.restaurant.slug.toLowerCase()!==slug.toLowerCase()) {
     return notFound();
   }
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto min-h-dvh max-h-dvh overflow-hidden">
       <ProductHeader product={product}/>
       <ProductTextHeader product={product}/>
     </main>

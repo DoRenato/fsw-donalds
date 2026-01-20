@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
     remotePatterns:[{
       hostname:"u9a6wmr3as.ufs.sh"
     }]
-  }
+  },
+  devIndicators: false,
 };
 
 export default nextConfig;
