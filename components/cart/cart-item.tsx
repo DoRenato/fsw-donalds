@@ -10,7 +10,7 @@ interface CartItemProps {
 }
 
 export default function CartItem({ item }: CartItemProps) {
-  const{decreaseProductQuantity, increaseProductQuantity} = useContext(CartContext)
+  const{decreaseProductQuantity, increaseProductQuantity, removeProduct} = useContext(CartContext)
   return (
     <div className="flex items-center py-5">
       <div className="">
@@ -48,9 +48,9 @@ export default function CartItem({ item }: CartItemProps) {
         </div>
       </div>
       <div>
-        <button className="rounded-full">
+        <Button onClick={()=>removeProduct(item.id)} variant={"outline"} className="rounded-full h-4 w-4 border-0">
           <Trash2 className="h-4 w-4" />
-        </button>
+        </Button>
       </div>
     </div>
   );
