@@ -6,11 +6,11 @@ import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-interface ProductHeaderProps {
+interface ProductImageHeaderProps {
   product: Pick<Product, "name" | "imageUrl">; // Só chama essas propriedades ao inves de todas
 }
 
-export default function ProductHeader({ product }: ProductHeaderProps) {
+export default function ProductImageHeader({ product }: ProductImageHeaderProps) {
   const router = useRouter();
   return (
     <div className="relative inline-block"> {/* inline block serve para quando tem botoes dentro de uma imagem */}
