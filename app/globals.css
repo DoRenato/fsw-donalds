@@ -3,6 +3,11 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  @apply h-full;
+}
+
+html{
+  @apply h-full;
 }
 
 @custom-variant dark (&:is(.dark *));
