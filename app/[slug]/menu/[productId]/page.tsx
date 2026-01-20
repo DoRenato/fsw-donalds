@@ -1,5 +1,6 @@
 import ProductHeader from "@/components/product/image-header-with-buttons";
-import { getProductById, getRestaurantBySlug } from "@/data/get-restaurant-data";
+import ProductTextHeader from "@/components/product/product-title-header";
+import { getProductById } from "@/data/get-restaurant-data";
 import { isConsumptionMethodValid } from "@/utils/is-comsumption-method-valid";
 import { notFound } from "next/navigation";
 
@@ -14,8 +15,7 @@ export default async function ProductPage({
   params,
   searchParams,
 }: ProductPageProps) {
-  const { slug, productId } =  await params;
-  const restaurant = await getRestaurantBySlug(slug);
+  const { productId } =  await params;
   const product = await getProductById(productId);
   const { consumptionMethod } = await searchParams;
   if (!isConsumptionMethodValid(consumptionMethod) || !product) {
@@ -24,6 +24,7 @@ export default async function ProductPage({
   return (
     <main className="container mx-auto">
       <ProductHeader product={product}/>
+      <ProductTextHeader product={product}/>
     </main>
   );
 }

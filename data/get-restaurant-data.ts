@@ -16,8 +16,18 @@ export const getRestaurantBySlug = async (slug: string) => {
 };
 
 export const getProductById = async (id: string) => {
-  const product = await db.product.findUnique({ where: { id: id } }); // poderia ser findFirst se não fosse um campo unique
-  return product;
+  const product = await db.product.findUnique({ 
+    where: { id: id },
+    include: {
+      restaurant: {
+        select: {
+          name: true,
+          avatarImageUrl: true
+        },
+      },
+    } 
+  });
+  return product
 };
 
 // export const getRestaurantBySlug = async (slug: string) => {
