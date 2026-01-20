@@ -2,12 +2,24 @@ import { Product } from "@prisma/client";
 import { ChefHat } from "lucide-react";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
+import { useContext } from "react";
+import { CartContext } from "@/app/[slug]/menu/contexts/cart";
+import CartSheet from "../menu/cart-sheet";
 
 interface ProductDetailsProps {
-  product: Product; // Só chama essas propriedades ao inves de todas
+  product: Product;
+  quantity: number
 }
 
-export default function ProductDetails({ product }: ProductDetailsProps) {
+export default function ProductDetails({ product, quantity }: ProductDetailsProps) {
+    const {isOpen, toggleCart, addProduct } = useContext(CartContext)
+    const handleAddToCart = () => {
+        addProduct({
+            ...product,
+            quantity: quantity
+        })
+        toggleCart()
+    }
   return (
     <div className="flex h-dvh flex-col px-5">
       <ScrollArea className="min-h-0 flex-1">
@@ -28,8 +40,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         </ul>
       </ScrollArea>
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white p-5">
-        <Button className="w-full rounded-full">Adicionar à Sacola</Button>
+        <Button onClick={handleAddToCart} className="w-full rounded-full">Adicionar à Sacola</Button>
       </div>
+      <CartSheet/>
     </div>
   );
 }

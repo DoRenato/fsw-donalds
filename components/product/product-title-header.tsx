@@ -75,7 +75,7 @@ export default function ProductTextHeader({ product }: ProductTextHeaderProps) {
         </div>
       </div>
       
-      <ProductDetails product={product} />
+      <ProductDetails product={product} quantity={quantity}/>
     </div>
   );
 }
