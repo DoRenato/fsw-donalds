@@ -20,7 +20,7 @@ model Restaurant {
   description    String
   avatarImageUrl String
   coverImageUrl  String
-  menuCategories   MenuCategory[]
+  menuCategories MenuCategory[]
   orders         Order[]
   products       Product[]
   createdAt      DateTime       @default(now())
@@ -32,7 +32,7 @@ model MenuCategory {
   name         String
   restaurantId String
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-  products    Product[]
+  products     Product[]
   createdAt    DateTime   @default(now())
   updateAt     DateTime   @updatedAt
 }
@@ -57,6 +57,8 @@ model Order {
   id                String            @id @default(uuid())
   numPedido         Int               @unique @default(autoincrement())
   totalInCents      Int
+  customerName      String
+  customerCpf       String
   status            OrderStatus
   consumptionMethod ConsumptionMethod
   orderProducts     OrderProduct[]
