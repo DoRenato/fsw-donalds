@@ -2,6 +2,7 @@ import { CartContext } from "@/app/[slug]/menu/contexts/cart";
 import { Button } from "../ui/button";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -12,6 +13,7 @@ import { useContext } from "react";
 import CartItem from "../cart/cart-item";
 import { ScrollArea } from "../ui/scroll-area";
 import { convertCentsInRealBRL } from "@/utils/convert-cents-in-real";
+import FinishOrderDisplay from "../cart/finish-order-display";
 
 export default function CartSheet() {
   const { isOpen, toggleCart, products, total } = useContext(CartContext);
@@ -45,9 +47,7 @@ export default function CartSheet() {
               <span className="font-semibold">{convertCentsInRealBRL(total)}</span>
             </h2>
           </div>
-          <Button type="submit" className="w-full rounded-full py-6">
-            Finalizar Pedido
-          </Button>
+          <FinishOrderDisplay>Finalizar Pedido</FinishOrderDisplay>
         </SheetFooter>
       </SheetContent>
     </Sheet>
