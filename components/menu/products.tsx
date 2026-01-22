@@ -15,7 +15,7 @@ export default function ProductMenuRestaurant({
   consumptionMethod,
 }: ProductMenuRestaurantProps) {
   return (
-    <div className="px-1">
+    <div className="px-1 pb-12">
       {products.map((product, indice) => {
         return (
           <div key={product.id} className="pt-5">

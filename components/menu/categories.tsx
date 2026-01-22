@@ -4,6 +4,10 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { MenuCategory, Prisma } from "@prisma/client";
 import { useState } from "react";
 import ProductMenuRestaurant from "./products";
+import { useContext } from "react";
+import { CartContext } from "@/app/[slug]/menu/contexts/cart";
+import { convertCentsInRealBRL } from "@/utils/convert-cents-in-real";
+import CartSheet from "./cart-sheet";
 
 interface RestaurantCategoriesProps {
   restaurant: Prisma.RestaurantGetPayload<{
@@ -26,6 +30,7 @@ export default function RestaurantCategories({
   restaurant,
   consumptionMethod,
 }: RestaurantCategoriesProps) {
+  const { products, total, totalQuantity, toggleCart } = useContext(CartContext);
   const [selectedCategory, setSelectedCategory] =
     useState<menuCategoriesWithProducts>(restaurant.menuCategories[0]);
   const handlerCategoryClick = (category: menuCategoriesWithProducts) => {
@@ -65,6 +70,21 @@ export default function RestaurantCategories({
         slug={restaurant.slug}
         products={selectedCategory.products}
       />
+      {products.length > 0 && (
+        <div className="fixed bottom-0 left-0 flex w-full justify-between border border-gray-200 bg-white pb-5 pt-5">
+          <div className="flex flex-col px-5">
+            <p className="text-sm text-gray-400">Total dos pedidos</p>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold">{convertCentsInRealBRL(total)}</span>
+              <span className="text-xs text-gray-400">/ {totalQuantity} {totalQuantity>1 ? "itens":"item"}</span>
+            </div>
+          </div>
+          <div className="px-5">
+            <Button onClick={toggleCart} className="rounded-lg p-6">Ver Sacola</Button>
+          </div>
+          <CartSheet/>
+        </div>
+      )}
     </div>
   );
 }
