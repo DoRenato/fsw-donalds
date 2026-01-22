@@ -10,11 +10,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { isValidCpf, removeCpfPunctuation } from "@/utils/cpf";
 import z from "zod/v3";
-import ShowOrder from "./ShowOrder";
+import { usePathname, useRouter } from "next/navigation";
 
 const formSchema = z.object({
   cpf: z
@@ -32,7 +32,8 @@ type FormSchema = z.infer<typeof formSchema>;
 
 export default function ListOrders() {
   const [isPendng, startTransition] = useTransition();
-  const [cpf, setCpf] = useState('');
+  const router = useRouter();
+  const pathname = usePathname();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,7 +43,7 @@ export default function ListOrders() {
   const onSubmit = async (data: FormSchema) => {
     try {
       startTransition(async () => {
-        setCpf(data.cpf)
+        router.push(`${pathname}?cpf=${removeCpfPunctuation(data.cpf)}`);
       });
     } catch (error) {
       console.error(error);
@@ -81,7 +82,6 @@ export default function ListOrders() {
           </div>
         </form>
       </Form>
-      <ShowOrder customerCpf={removeCpfPunctuation(cpf)}/>
     </div>
   );
 }

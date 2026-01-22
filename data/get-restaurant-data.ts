@@ -1,4 +1,5 @@
 import { db } from "@/lib/prisma";
+import { removeCpfPunctuation } from "@/utils/cpf";
 
 export const getRestaurantBySlug = async (slug: string) => {
   const restaurant = await db.restaurant.findUnique({
@@ -32,7 +33,7 @@ export const getProductById = async (id: string) => {
 
 export const getOrdersByCpf = async (customerCpf: string) => {
   const order = await db.order.findMany({
-    where: { customerCpf: customerCpf },
+    where: { customerCpf: removeCpfPunctuation(customerCpf) },
     include: {
       restaurant: {
         select: {
