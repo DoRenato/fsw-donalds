@@ -12,7 +12,7 @@ import {
 import { Input } from "../ui/input";
 import React, { useContext, useState, useTransition } from "react";
 import z from "zod";
-import { isValidCpf } from "@/utils/cpf";
+import { isValidCpf, removeCpfPunctuation } from "@/utils/cpf";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -76,7 +76,7 @@ export default function FinishOrderDisplay({
       startTransition(async () => {
         await createOrder({
           consumptionMethod,
-          customerCpf: data.cpf,
+          customerCpf: removeCpfPunctuation(data.cpf),
           customerName: data.name,
           products,
           slug,
