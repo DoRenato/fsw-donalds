@@ -28,6 +28,8 @@ import { useParams, useSearchParams } from "next/navigation";
 import { ConsumptionMethod } from "@prisma/client";
 import { CartContext } from "@/app/[slug]/menu/contexts/cart";
 import { toast } from "sonner";
+import { Check } from "lucide-react";
+import Link from "next/link";
 
 interface FinishOrderDisplayProps {
   children: React.ReactNode;
@@ -53,7 +55,8 @@ type FormSchema = z.infer<typeof formSchema>;
 export default function FinishOrderDisplay({
   children,
 }: FinishOrderDisplayProps) {
-  const [open, setOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
+  const [sucessOpen, setSucessOpen] = useState(false);
   const { slug } = useParams<{ slug: string }>();
   const { products } = useContext(CartContext);
   const [isPendng, startTransition] = useTransition();
@@ -78,7 +81,8 @@ export default function FinishOrderDisplay({
           products,
           slug,
         });
-        setOpen(false)
+        setFormOpen(false);
+        setSucessOpen(true);
         toast.success("Pedido finalizado com sucesso!");
       });
     } catch (error) {
@@ -86,71 +90,111 @@ export default function FinishOrderDisplay({
     }
   };
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button className="w-full rounded-full py-6">{children}</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-106.25">
-        <DialogHeader>
-          <DialogTitle>Quase lá!</DialogTitle>
-          <DialogDescription>
-            Para finalizar o seu pedido, insira os dados abaixo.
-          </DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="pb-5">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Seu nome</FormLabel>
-                    <FormControl className="mb-0">
-                      <Input placeholder="Digite seu nome" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="pb-7">
-              <FormField
-                control={form.control}
-                name="cpf"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Seu CPF</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Digite seu CPF" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <DialogFooter>
-              <DialogClose asChild>
+    <div>
+      <Dialog open={formOpen} onOpenChange={setFormOpen}>
+        <DialogTrigger asChild>
+          <Button className="w-full rounded-full py-6">{children}</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-106.25">
+          <DialogHeader>
+            <DialogTitle>Quase lá!</DialogTitle>
+            <DialogDescription>
+              Para finalizar o seu pedido, insira os dados abaixo.
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="pb-5">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Seu nome</FormLabel>
+                      <FormControl className="mb-0">
+                        <Input placeholder="Digite seu nome" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="pb-7">
+                <FormField
+                  control={form.control}
+                  name="cpf"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Seu CPF</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Digite seu CPF" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button
+                    variant="outline"
+                    className="rounded-full"
+                    disabled={isPendng}
+                  >
+                    Cancelar
+                  </Button>
+                </DialogClose>
                 <Button
-                  variant="outline"
-                  className="rounded-full"
+                  type="submit"
+                  variant={"destructive"}
+                  className="w-full rounded-full"
                   disabled={isPendng}
                 >
-                  Cancelar
+                  Finalizar
                 </Button>
-              </DialogClose>
-              <Button
-                type="submit"
-                variant={"destructive"}
-                className="w-full rounded-full"
-                disabled={isPendng}
-              >
-                Finalizar
-              </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={sucessOpen} onOpenChange={setSucessOpen}>
+        <form>
+          {/* <DialogTrigger asChild>
+            <Button variant="outline">Open Dialog</Button>
+          </DialogTrigger> */}
+          <DialogContent className="sm:max-w-106.25" showCloseButton={false}>
+            <DialogHeader>
+              <div className="flex justify-center pb-5">
+                <Check className="w-15 h-15 rounded-full border bg-red-600 p-3 text-white" />
+              </div>
+              <DialogTitle>Pedido Efetuado!</DialogTitle>
+              <DialogDescription className="pb-5">
+                Seu pedido foi realizado com suecesso!
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <div className="grid grid-cols-2 gap-2">
+                <Link href={"/orders"}>
+                  <DialogClose asChild>
+                    <Button className="w-full rounded-full bg-red-600 text-white">
+                      Ver Pedidos
+                    </Button>
+                  </DialogClose>
+                </Link>
+                <DialogClose asChild>
+                  <Button
+                    variant="secondary"
+                    className="rounded-full font-semibold"
+                  >
+                    Continuar
+                  </Button>
+                </DialogClose>
+              </div>
             </DialogFooter>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+          </DialogContent>
+        </form>
+      </Dialog>
+    </div>
   );
 }
