@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Product, Restaurant } from "@prisma/client";
 import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface ProductImageHeaderProps {
@@ -31,13 +32,15 @@ export default function ProductImageHeader({ product }: ProductImageHeaderProps)
       >
         <ChevronLeftIcon />
       </Button>
-      <Button
-        variant={"secondary"}
-        size={"icon"}
-        className="absolute right-4 top-4 z-50 rounded-full bg-white"
-      >
-        <ScrollTextIcon />
-      </Button>
+      <Link href={"/orders"}>
+        <Button
+          variant={"secondary"}
+          size={"icon"}
+          className="absolute right-4 top-4 z-50 rounded-full bg-white"
+        >
+          <ScrollTextIcon />
+        </Button>
+      </Link>
     </div>
   );
 }

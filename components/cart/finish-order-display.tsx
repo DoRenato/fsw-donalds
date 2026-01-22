@@ -88,7 +88,6 @@ export default function FinishOrderDisplay({
   };
   return (
     <Dialog>
-      {/* <form onSubmit={}> */}
       <DialogTrigger asChild>
         <Button className="w-full rounded-full py-6">{children}</Button>
       </DialogTrigger>
@@ -153,7 +152,6 @@ export default function FinishOrderDisplay({
           </form>
         </Form>
       </DialogContent>
-      {/* </form> */}
     </Dialog>
   );
 }

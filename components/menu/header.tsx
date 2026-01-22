@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Restaurant } from "@prisma/client";
 import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface RestaurantHeaderProps {
@@ -15,7 +16,9 @@ export default function RestaurantHeader({
 }: RestaurantHeaderProps) {
   const router = useRouter();
   return (
-    <div className="relative inline-block"> {/* inline block serve para quando tem botoes dentro de uma imagem */}
+    <div className="relative inline-block">
+      {" "}
+      {/* inline block serve para quando tem botoes dentro de uma imagem */}
       <Image
         src={restaurant.coverImageUrl}
         alt={restaurant.name}
@@ -25,18 +28,20 @@ export default function RestaurantHeader({
       <Button
         variant={"secondary"}
         size={"icon"}
-        className="absolute top-4 left-4 z-50 rounded-full bg-white"
+        className="absolute left-4 top-4 z-50 rounded-full bg-white"
         onClick={() => router.back()}
       >
         <ChevronLeftIcon />
       </Button>
-      <Button
-        variant={"secondary"}
-        size={"icon"}
-        className="absolute top-4 right-4 z-50 rounded-full bg-white"
-      >
-        <ScrollTextIcon />
-      </Button>
+      <Link href={"/orders"}>
+        <Button
+          variant={"secondary"}
+          size={"icon"}
+          className="absolute right-4 top-4 z-50 rounded-full bg-white"
+        >
+          <ScrollTextIcon />
+        </Button>
+      </Link>
     </div>
   );
 }
