@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import React, { useContext, useState } from "react";
+import React, { useContext, useTransition } from "react";
 import z from "zod";
 import { isValidCpf } from "@/utils/cpf";
 import { useForm } from "react-hook-form";
@@ -29,6 +29,7 @@ import { createOrder } from "@/app/[slug]/menu/actions/create-order";
 import { useParams, useSearchParams } from "next/navigation";
 import { ConsumptionMethod } from "@prisma/client";
 import { CartContext } from "@/app/[slug]/menu/contexts/cart";
+import { toast } from "sonner";
 
 interface FinishOrderDisplayProps {
   children: React.ReactNode;
@@ -57,6 +58,7 @@ export default function FinishOrderDisplay({
   // const [open, setOpen] = useState(false);
   const { slug } = useParams<{ slug: string }>();
   const { products } = useContext(CartContext);
+  const [isPendng, startTransition] = useTransition();
   const searchParams = useSearchParams();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -70,14 +72,16 @@ export default function FinishOrderDisplay({
       const consumptionMethod = searchParams.get(
         "consumptionMethod",
       ) as ConsumptionMethod;
-      await createOrder({
-        consumptionMethod,
-        customerCpf: data.cpf,
-        customerName: data.name,
-        products,
-        slug,
+      startTransition(async () => {
+        await createOrder({
+          consumptionMethod,
+          customerCpf: data.cpf,
+          customerName: data.name,
+          products,
+          slug,
+        });
+        toast.success("Pedido finalizado com sucesso!");
       });
-      // setOpen(false);
     } catch (error) {
       console.error(error);
     }
@@ -140,6 +144,7 @@ export default function FinishOrderDisplay({
                   type="submit"
                   variant={"destructive"}
                   className="w-full rounded-full"
+                  disabled={isPendng}
                 >
                   Finalizar
                 </Button>
