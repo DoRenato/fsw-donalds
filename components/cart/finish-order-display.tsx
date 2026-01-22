@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "../ui/input";
-import React, { useContext, useTransition } from "react";
+import React, { useContext, useState, useTransition } from "react";
 import z from "zod";
 import { isValidCpf } from "@/utils/cpf";
 import { useForm } from "react-hook-form";
@@ -53,7 +53,7 @@ type FormSchema = z.infer<typeof formSchema>;
 export default function FinishOrderDisplay({
   children,
 }: FinishOrderDisplayProps) {
-  // const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const { slug } = useParams<{ slug: string }>();
   const { products } = useContext(CartContext);
   const [isPendng, startTransition] = useTransition();
@@ -78,6 +78,7 @@ export default function FinishOrderDisplay({
           products,
           slug,
         });
+        setOpen(false)
         toast.success("Pedido finalizado com sucesso!");
       });
     } catch (error) {
@@ -85,7 +86,7 @@ export default function FinishOrderDisplay({
     }
   };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="w-full rounded-full py-6">{children}</Button>
       </DialogTrigger>
@@ -108,7 +109,6 @@ export default function FinishOrderDisplay({
                     <FormControl className="mb-0">
                       <Input placeholder="Digite seu nome" {...field} />
                     </FormControl>
-                    {/* <FormDescription>This is your plubic</FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
@@ -124,7 +124,6 @@ export default function FinishOrderDisplay({
                     <FormControl>
                       <Input placeholder="Digite seu CPF" {...field} />
                     </FormControl>
-                    {/* <FormDescription>This is your plubic</FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
@@ -132,20 +131,22 @@ export default function FinishOrderDisplay({
             </div>
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant="outline" className="rounded-full">
+                <Button
+                  variant="outline"
+                  className="rounded-full"
+                  disabled={isPendng}
+                >
                   Cancelar
                 </Button>
               </DialogClose>
-              <DialogClose>
-                <Button
-                  type="submit"
-                  variant={"destructive"}
-                  className="w-full rounded-full"
-                  disabled={isPendng}
-                >
-                  Finalizar
-                </Button>
-              </DialogClose>
+              <Button
+                type="submit"
+                variant={"destructive"}
+                className="w-full rounded-full"
+                disabled={isPendng}
+              >
+                Finalizar
+              </Button>
             </DialogFooter>
           </form>
         </Form>
