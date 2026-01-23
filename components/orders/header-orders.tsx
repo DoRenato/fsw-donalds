@@ -1,20 +1,11 @@
-import Link from "next/link";
-import { Button } from "../ui/button";
-import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
+import { ScrollTextIcon } from "lucide-react";
+import ButtonBack from "../geral/ButtonBack";
 
 export default function HeaderOrdersButtons() {
   return (
     <div className="flex flex-col pb-5 pl-7 pt-6">
       <div className="pb-7">
-        <Button
-          variant={"secondary"}
-          size={"icon"}
-          className="rounded-full bg-gray-200 p-6"
-        >
-          <Link href={"/fsw-donalds"}>
-            <ChevronLeftIcon />
-          </Link>
-        </Button>
+        <ButtonBack type="2"/>
       </div>
       <div className="flex gap-3">
         <ScrollTextIcon />

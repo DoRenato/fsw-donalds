@@ -1,11 +1,9 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Restaurant } from "@prisma/client";
-import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
+import { ScrollTextIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import ButtonBack from "../geral/ButtonBack";
 
 interface RestaurantHeaderProps {
   restaurant: Pick<Restaurant, "name" | "coverImageUrl">; // Só chama essas propriedades ao inves de todas
@@ -14,7 +12,6 @@ interface RestaurantHeaderProps {
 export default function RestaurantHeader({
   restaurant,
 }: RestaurantHeaderProps) {
-  const router = useRouter();
   return (
     <div className="relative inline-block">
       {" "}
@@ -25,14 +22,7 @@ export default function RestaurantHeader({
         width={720}
         height={480}
       />
-      <Button
-        variant={"secondary"}
-        size={"icon"}
-        className="absolute left-4 top-4 z-50 rounded-full bg-white"
-        onClick={() => router.back()}
-      >
-        <ChevronLeftIcon />
-      </Button>
+      <ButtonBack/>
       <Link href={"/orders"}>
         <Button
           variant={"secondary"}
