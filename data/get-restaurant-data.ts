@@ -32,8 +32,15 @@ export const getProductById = async (id: string) => {
 };
 
 export const getOrdersByCpf = async (customerCpf: string) => {
+  const cpf = customerCpf;
+  try {
+    const cpf = removeCpfPunctuation(customerCpf);
+  } catch (error) {
+    console.log('error cpf pontuation');
+    // console.error(error);
+  }
   const order = await db.order.findMany({
-    where: { customerCpf: removeCpfPunctuation(customerCpf) },
+    where: { customerCpf: cpf },
     include: {
       restaurant: {
         select: {
