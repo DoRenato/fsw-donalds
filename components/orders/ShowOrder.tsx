@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { convertCentsInRealBRL } from "@/utils/convert-cents-in-real";
-import { Order } from "@prisma/client";
+import { OrderWithRelations } from "@/types/orders-data";
 
 interface ShowOrderProps {
-  orders: Order[];
+  orders: OrderWithRelations[];
 }
 
 export default function ShowOrder({ orders }: ShowOrderProps) {
