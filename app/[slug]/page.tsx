@@ -19,14 +19,14 @@ export default async function ConsumptionMethodPage({
     return notFound();
   }
   return (
-    <div className="bg-gray-300">
-      <main className="md:max-w-106.25 py-25 container mx-auto flex min-h-dvh flex-col bg-white">
+    <>
+      <main className="py-25 container mx-auto flex min-h-dvh flex-col bg-white">
         <div className="absolute top-5 z-50 flex px-5">
           <Link href={"/"}>
             <Button
               variant={"secondary"}
               size={"icon"}
-              className="rounded-full bg-gray-200 p-7"
+              className="rounded-full bg-gray-200 p-6"
             >
               <ChevronLeftIcon />
             </Button>
@@ -70,6 +70,6 @@ export default async function ConsumptionMethodPage({
           />
         </div>
       </main>
-    </div>
+    </>
   );
 }

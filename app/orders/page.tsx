@@ -23,12 +23,10 @@ export default async function Orders({ searchParams }: OrdersProps) {
     }
   };
   return (
-    <div className="bg-gray-300">
-      <main className="md:max-w-106.25 bg-white min-h-dvh mx-auto">
+    <main className="container mx-auto bg-white min-h-dvh">
       <HeaderOrdersButtons />
       <ListOrders />
       {orderScreen()}
     </main>
-    </div>
   );
 }

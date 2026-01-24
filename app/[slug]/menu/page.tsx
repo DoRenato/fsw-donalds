@@ -24,15 +24,13 @@ export default async function RestaurantMenuPage({
     return notFound();
   }
   return (
-    <div className="bg-gray-300">
-      <main className="md:max-w-106.25 mx-auto pb-15 bg-white">
+    <div className="pb-15 container mx-auto bg-white">
       <RestaurantHeader restaurant={restaurant} />
       <RestaurantTitle restaurant={restaurant} />
       <RestaurantCategories
         restaurant={restaurant}
         consumptionMethod={consumptionMethod}
       />
-      </main>
     </div>
   );
 }
