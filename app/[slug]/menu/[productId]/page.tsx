@@ -15,16 +15,22 @@ export default async function ProductPage({
   params,
   searchParams,
 }: ProductPageProps) {
-  const { productId, slug } =  await params;
+  const { productId, slug } = await params;
   const product = await getProductById(productId);
   const { consumptionMethod } = await searchParams;
-  if (!isConsumptionMethodValid(consumptionMethod) || !product || product.restaurant.slug.toLowerCase()!==slug.toLowerCase()) {
+  if (
+    !isConsumptionMethodValid(consumptionMethod) ||
+    !product ||
+    product.restaurant.slug.toLowerCase() !== slug.toLowerCase()
+  ) {
     return notFound();
   }
   return (
-    <main className="container mx-auto min-h-dvh max-h-dvh overflow-hidden">
-      <ProductHeader product={product}/>
-      <ProductTextHeader product={product}/>
-    </main>
+    <div className="bg-gray-300">
+      <main className="md:max-w-106.25 mx-auto max-h-dvh min-h-dvh overflow-hidden">
+        <ProductHeader product={product} />
+        <ProductTextHeader product={product} />
+      </main>
+    </div>
   );
 }

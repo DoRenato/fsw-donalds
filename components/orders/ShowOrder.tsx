@@ -31,7 +31,7 @@ export default function ShowOrder({ orders }: ShowOrderProps) {
     }
   };
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-20">
       {orders.map((order) => (
         <div key={order.id}>
           <div className="pb-2">

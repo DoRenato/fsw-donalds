@@ -19,17 +19,19 @@ export default async function ConsumptionMethodPage({
     return notFound();
   }
   return (
-    <>
-      <main className="py-25 container mx-auto flex min-h-dvh flex-col">
-        <Link href={"/"}>
-          <Button
-            variant={"secondary"}
-            size={"icon"}
-            className="absolute left-4 top-4 z-50 rounded-full bg-gray-200"
-          >
-            <ChevronLeftIcon />
-          </Button>
-        </Link>
+    <div className="bg-gray-300">
+      <main className="md:max-w-106.25 py-25 container mx-auto flex min-h-dvh flex-col bg-white">
+        <div className="absolute top-5 z-50 flex px-5">
+          <Link href={"/"}>
+            <Button
+              variant={"secondary"}
+              size={"icon"}
+              className="rounded-full bg-gray-200 p-7"
+            >
+              <ChevronLeftIcon />
+            </Button>
+          </Link>
+        </div>
         {/* Logo e Título */}
         <div className="flex flex-col items-center gap-2">
           <Image
@@ -68,6 +70,6 @@ export default async function ConsumptionMethodPage({
           />
         </div>
       </main>
-    </>
+    </div>
   );
 }

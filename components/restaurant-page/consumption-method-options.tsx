@@ -16,17 +16,18 @@ export default function ConsumptionMethodOptions({
   imageAlt,
   buttonText,
   option,
-  slug
+  slug,
 }: ConsumptionMethodOptionsProps) {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center gap-5">
-        <div className="relative h-19 w-19">
+        <div className="h-19 w-19 relative">
           <Image src={imageUrl} alt={imageAlt} fill />
         </div>
-        <Button variant="secondary">
-          <Link href={`${slug}/menu?consumptionMethod=${option}`}>{buttonText}</Link>
-        </Button>
+
+        <Link href={`${slug}/menu?consumptionMethod=${option}`}>
+          <Button variant="secondary">{buttonText}</Button>
+        </Link>
       </div>
     </div>
   );
