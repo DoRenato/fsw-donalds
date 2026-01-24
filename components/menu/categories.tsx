@@ -1,13 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { MenuCategory, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { useState } from "react";
 import ProductMenuRestaurant from "./products";
 import { useContext } from "react";
 import { CartContext } from "@/app/[slug]/menu/contexts/cart";
 import { convertCentsInRealBRL } from "@/utils/convert-cents-in-real";
-import CartSheet from "./cart-sheet";
+import CartSheet from "../product/cart-sheet";
 
 interface RestaurantCategoriesProps {
   restaurant: Prisma.RestaurantGetPayload<{

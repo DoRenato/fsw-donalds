@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import { useContext } from "react";
 import { CartContext } from "@/app/[slug]/menu/contexts/cart";
-import CartSheet from "../menu/cart-sheet";
+import CartSheet from "./cart-sheet";
 
 interface ProductDetailsProps {
   product: Product;
@@ -15,7 +15,7 @@ export default function ProductDetails({
   product,
   quantity,
 }: ProductDetailsProps) {
-  const { isOpen, toggleCart, addProduct } = useContext(CartContext);
+  const { toggleCart, addProduct } = useContext(CartContext);
   const handleAddToCart = () => {
     addProduct({
       ...product,

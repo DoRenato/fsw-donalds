@@ -95,10 +95,10 @@ export default function FinishOrderDisplay({
         <DialogTrigger asChild>
           <Button className="w-full rounded-full py-6">{children}</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-106.25">
+        <DialogContent className="sm:max-w-106.25 md:w-100">
           <DialogHeader>
-            <DialogTitle>Quase lá!</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-center">Quase lá!</DialogTitle>
+            <DialogDescription className="text-center">
               Para finalizar o seu pedido, insira os dados abaixo.
             </DialogDescription>
           </DialogHeader>
@@ -134,25 +134,30 @@ export default function FinishOrderDisplay({
                   )}
                 />
               </div>
-              <DialogFooter>
-                <DialogClose asChild>
+              {/* footer */}
+              <div className="flex gap-2">
+                <div className="w-full">
+                  <DialogClose asChild>
+                    <Button
+                      variant="outline"
+                      className="w-full rounded-full"
+                      disabled={isPendng}
+                    >
+                      Cancelar
+                    </Button>
+                  </DialogClose>
+                </div>
+                <div className="w-full">
                   <Button
-                    variant="outline"
-                    className="rounded-full"
+                    type="submit"
+                    variant={"destructive"}
+                    className="w-full rounded-full"
                     disabled={isPendng}
                   >
-                    Cancelar
+                    Finalizar
                   </Button>
-                </DialogClose>
-                <Button
-                  type="submit"
-                  variant={"destructive"}
-                  className="w-full rounded-full"
-                  disabled={isPendng}
-                >
-                  Finalizar
-                </Button>
-              </DialogFooter>
+                </div>
+              </div>
             </form>
           </Form>
         </DialogContent>
@@ -163,7 +168,7 @@ export default function FinishOrderDisplay({
           {/* <DialogTrigger asChild>
             <Button variant="outline">Open Dialog</Button>
           </DialogTrigger> */}
-          <DialogContent className="sm:max-w-106.25" showCloseButton={false}>
+          <DialogContent className="sm:max-w-106.25 md:w-100" showCloseButton={false}>
             <DialogHeader>
               <div className="flex justify-center pb-5">
                 <Check className="w-15 h-15 rounded-full border bg-red-600 p-3 text-white" />
@@ -173,7 +178,6 @@ export default function FinishOrderDisplay({
                 Seu pedido foi realizado com suecesso!
               </DialogDescription>
             </DialogHeader>
-            <DialogFooter>
               <div className="grid grid-cols-2 gap-2">
                 <Link href={"/orders"}>
                   <DialogClose asChild>
@@ -191,7 +195,6 @@ export default function FinishOrderDisplay({
                   </Button>
                 </DialogClose>
               </div>
-            </DialogFooter>
           </DialogContent>
         </form>
       </Dialog>
