@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+ # FSW Donalds
 
-## Getting Started
+ [![Demo](https://img.shields.io/badge/demo-online-green)](https://fsw-donalds-mu.vercel.app/)
 
-First, run the development server:
+ App de **autoatendimento para restaurantes** (estilo iFood), onde o cliente:
+ 
+ 1. Escolhe o restaurante
+ 2. Escolhe como vai consumir (comer no local ou levar)
+ 3. Navega pelo cardápio, vê detalhes do produto e adiciona à sacola
+ 4. Finaliza o pedido informando nome e CPF
+ 5. Consulta pedidos pelo CPF
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ ## Fluxo no app (rotas)
+ 
+ - **Home (`/`)**
+   Lista os restaurantes disponíveis.
+ - **Restaurante (`/[slug]`)**
+   Seleção do método de consumo.
+ - **Cardápio (`/[slug]/menu?consumptionMethod=...`)**
+   Lista categorias e produtos do restaurante.
+ - **Produto (`/[slug]/menu/[productId]?consumptionMethod=...`)**
+   Detalhes do produto e opção de adicionar ao carrinho.
+ - **Pedidos (`/orders?cpf=...`)**
+   Busca e exibe pedidos cadastrados para o CPF.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ ## Funcionalidades
+ 
+ - **Seleção de restaurante**
+ - **Cardápio por categorias**
+ - **Carrinho/Sacola**
+   Adicionar/remover itens e alterar quantidades.
+ - **Finalização do pedido**
+   Form com validação (nome e CPF) e criação do pedido no banco.
+ - **Consulta de pedidos por CPF**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ ## Stack
+ 
+ - **Next.js (App Router)**
+ - **React + TypeScript**
+ - **Tailwind CSS + shadcn/ui (Radix UI) + Lucide**
+ - **Prisma ORM + PostgreSQL**
+ - **React Hook Form + Zod**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ ## Rodando localmente
+ 
+ ### Requisitos
+ 
+ - **Node.js** (recomendado 20+)
+ - **PostgreSQL**
+ - **npm** (o repo inclui `package-lock.json`)
 
-## Learn More
+ ### 1) Instalar dependências
+ 
+ ```bash
+ npm install
+ ```
+ 
+ Observação: o `postinstall` executa `prisma generate` automaticamente.
 
-To learn more about Next.js, take a look at the following resources:
+ ### 2) Configurar variáveis de ambiente
+ 
+ Crie um arquivo `.env` na raiz com a variável `DATABASE_URL`:
+ 
+ ```env
+ DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/fsw_donalds?schema=public"
+ ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ ### 3) Criar o banco (migrations) e popular dados (seed)
+ 
+ ```bash
+ npx prisma migrate dev
+ npx prisma db seed
+ ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ ### 4) Rodar o projeto
+ 
+ ```bash
+ npm run dev
+ ```
 
-## Deploy on Vercel
+ Acesse `http://localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ ## Comandos úteis
+ 
+ ```bash
+ npm run dev
+ npm run build
+ npm run start
+ npm run lint
+ npx prisma studio
+ ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ ## Observações
+ 
+ - O projeto permite carregar imagens remotas do domínio `u9a6wmr3as.ufs.sh` (configurado em `next.config.ts`).
