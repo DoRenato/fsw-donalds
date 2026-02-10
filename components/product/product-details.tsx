@@ -24,7 +24,7 @@ export default function ProductDetails({
     toggleCart();
   };
   return (
-    <div>
+    <div className="relative flex flex-col items-center">
       <div className="flex h-dvh flex-col px-5">
         <ScrollArea className="min-h-0 flex-1">
           <h2 className="pb-1 text-sm font-semibold">Sobre</h2>
@@ -46,8 +46,8 @@ export default function ProductDetails({
           </ul>
         </ScrollArea>
       </div>
-      <div className="min-w-106.25 fixed bottom-0 z-50 border-t border-gray-200 bg-white">
-        <div className="max-w-106.25 p-5">
+      <div className="w-full md:w-106.25 fixed bottom-0 z-50 border-t border-gray-200 bg-white">
+        <div className="p-5">
           <Button onClick={handleAddToCart} className="w-full rounded-full">
             Adicionar à Sacola
           </Button>
